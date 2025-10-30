@@ -1,3 +1,34 @@
+--// Key system
+local validKeysURL = "https://raw.githubusercontent.com/Two90K/ResellX/main/keys.txt"
+
+-- Fetch the valid keys list
+local success, response = pcall(function()
+    return game:HttpGet(validKeysURL)
+end)
+
+if not success then
+    warn("Failed to load key list.")
+    return
+end
+
+-- Turn the list into a table
+local validKeys = {}
+for key in string.gmatch(response, "[^\r\n]+") do
+    validKeys[key] = true
+end
+
+-- Ask user for key
+local userKey = "ENTER_YOUR_KEY_HERE" -- you can change this to get input instead
+
+-- Check key
+if not validKeys[userKey] then
+    game.Players.LocalPlayer:Kick("Invalid key! Get a valid one from the ResellX key system.")
+    return
+end
+
+print("✅ Key accepted! Running script...")
+
+
 if getgenv().loaded then 
     return
 end 
